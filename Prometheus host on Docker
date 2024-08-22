@@ -1,1 +1,34 @@
+# Installation
+----------------
+sudo apt update
+sudo apt install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+mkdir -p ~/prometheus
+nano ~/prometheus/prometheus.yml
+docker pull prom/prometheus
+sudo docker pull prom/prometheus
+sudo docker run -d --name prometheus -p 9090:9090 -v ~/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus
+sudo docker ps
+-------------------------------------------------------------------------------------------------------------------
+
+# Manage Docker Containers with Docker Compose
+-----------------------------------------------
+-sudo apt install docker-compose
+-nano ~/prometheus/docker-compose.yml
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ~/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+# Run Docker Compose 
+--------------------------
+cd ~/prometheus
+sudo docker-compose up -d
 
